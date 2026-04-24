@@ -9,8 +9,10 @@ import {
   FaUser,
   FaYoutube,
 } from "react-icons/fa6";
-import { ChatApp, ImageSharing, OpenAI, PixabayClone } from "../assets";
+import { ChatApp, OpenAI } from "../assets";
 
+import Empathika from "../assets/img/Project/Empathika.png";
+import Cartup from "../assets/img/Project/cartup.png";
 import NewsLetter from "../assets/img/Project/newsLetter.png";
 import Tasker from "../assets/img/Project/tasker.png";
 
@@ -76,16 +78,16 @@ export const Menus = [
 
 export const ProjectsData = [
   {
-    id: `food-${Date.now()}`,
-    name: "Tasker",
-    imgSrc: Tasker,
-    gitURL: "https://tasker-mauve.vercel.app/",
+    id: `cartup-${Date.now()}`,
+    name: "Cartup",
+    imgSrc: Cartup,
+    gitURL: "https://cartup.com/",
   },
   {
     id: `codepen-${Date.now()}`,
-    name: "NewsLetter Platform",
-    imgSrc: NewsLetter,
-    gitURL: "newsletter-project-six.vercel.app",
+    name: "Empathika",
+    imgSrc: Empathika,
+    gitURL: "https://empathika.com/",
   },
   {
     id: `openai-${Date.now()}`,
@@ -100,16 +102,16 @@ export const ProjectsData = [
     gitURL: "https://github.com/Vetrivel-VP",
   },
   {
-    id: `imageSharing-${Date.now()}`,
-    name: "Image Sharing App",
-    imgSrc: ImageSharing,
-    gitURL: "https://github.com/Vetrivel-VP",
+    id: `newsLatter-${Date.now()}`,
+    name: "Newsletter Signup UI",
+    imgSrc: NewsLetter,
+    gitURL: "https://github.com/JithanRoy/NewsLetter-UI-Build",
   },
   {
     id: `pixabayclone-${Date.now()}`,
-    name: "Pixabay Clone 2.0",
-    imgSrc: PixabayClone,
-    gitURL: "https://github.com/Vetrivel-VP",
+    name: "Tasker",
+    imgSrc: Tasker,
+    gitURL: "https://tasker-app-jithan.netlify.app/",
   },
   // {
   //   id: `freshjuiceui-${Date.now()}`,

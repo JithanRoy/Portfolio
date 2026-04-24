@@ -43,33 +43,29 @@ const Projects = () => {
 
 const ProjectCard = ({ project, index }) => {
   const [isHovered, setIsHoverred] = useState(false);
-    return (
-      <motion.div
-       className="overflow-hidden cursor-pointer relative rounded-md"
-       key={project.id} 
-       onMouseEnter={() => setIsHoverred(true)}
-       onMouseLeave={() => setIsHoverred(false)}
-      >
-        <motion.img 
-          whileHover={{ scale: 1.1 }}
-          className="w-full h-full object-contain rounded-lg" 
-          src={ project.imgSrc} 
-        />
-        {
-          isHovered && (
-          <motion.div className="absolute inset-0 backdrop-blur-md bg-[rgba(0,0,0,0.6)] flex justify-center items-center py-auto text-center gap-2">
-            <p className="text-xl text-primary">{project?.name}</p>
-            <a 
-              href={project?.gitURL} 
-              className="">
-                <FaGithub className="text-3xl text-white hover:text-primary" />
-            </a>
-          </motion.div>
-        )
-        }
-
-      </motion.div>
-    )
-}
+  return (
+    <motion.a
+      href={project?.gitURL}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="overflow-hidden cursor-pointer relative rounded-md"
+      key={project.id}
+      onMouseEnter={() => setIsHoverred(true)}
+      onMouseLeave={() => setIsHoverred(false)}
+    >
+      <motion.img
+        whileHover={{ scale: 1.1 }}
+        className="w-full h-full object-contain rounded-lg"
+        src={project.imgSrc}
+      />
+      {isHovered && (
+        <motion.div className="absolute inset-0 backdrop-blur-md bg-[rgba(0,0,0,0.6)] flex justify-center items-center py-auto text-center gap-2">
+          <p className="text-xl text-primary">{project?.name}</p>
+          <FaGithub className="text-3xl text-white hover:text-primary" />
+        </motion.div>
+      )}
+    </motion.a>
+  );
+};
 
 export default Projects;
