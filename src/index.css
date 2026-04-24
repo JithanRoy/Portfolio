@@ -2,21 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
-/*@import url(https://fonts.googleapis.com/css?family=Croissant+One:regular);*/
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
 
 body {
   width: 100vw;
   min-height: 100vh;
-  height: 100vh;
-  background: #020010;
-  font-family: "Croissant One", cursive;
+  /* background: #020010; */
+  background: radial-gradient(circle at top, #0d0b2b 0%, #020010 100%);
+  color: #e2e8f0;
+  font-family: 'Outfit', sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: start;
+  overflow-x: hidden;
 }
 
 body,
 html {
   scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #020010;
+}
+::-webkit-scrollbar-thumb {
+  background: #00FFAA;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #00FF60;
 }

@@ -25,7 +25,7 @@ const Contact = () => {
   }
 
   const sendMessage = async () => {
-    if( data.email === "" || data.message === null ) {
+    if( data.email === "" || data.message === "" ) {
       // throw an alert
       setAlert({
         isAlert: true,
@@ -41,40 +41,30 @@ const Contact = () => {
         clearInterval(alertInterval);
       }, 4000)
     } else {
-      // await addDoc(collection(db, "messages"), {...data})
-      // .then(() => {
-      //   setData({firstName:"", lastName: "", email:"", message:""})
-      //   //throw that alert message
-      //     setAlert({
-      //       isAlert: true,
-      //       message: "Thanks for submitting your request",
-      //       status: "success",
-      //     })
-      //     let alertInterval = setInterval(() => {
-      //       setAlert({
-      //         isAlert: false,
-      //         message: "",
-      //         status: null,
-      //       });
-      //       clearInterval(alertInterval);
-      //     }, 4000)
-      // })
-      // .catch((err) => {
-      //   //throw that alert
-      //   setAlert({
-      //     isAlert: true,
-      //     message: `Error: ${err.message}`,
-      //     status: "danger"
-      //   })
-      //   let alertInterval = setInterval(() => {
-      //     setAlert({
-      //       isAlert: false,
-      //       message: "",
-      //       status: null,
-      //     });
-      //     clearInterval(alertInterval);
-      //   }, 4000)
-      // })
+      // Simulate API call
+      setAlert({
+          isAlert: true,
+          message: "Sending message...",
+          status: "success"
+      });
+      
+      setTimeout(() => {
+        setData({firstName:"", lastName: "", email:"", message:""})
+        //throw that alert message
+        setAlert({
+          isAlert: true,
+          message: "Thanks for submitting your request",
+          status: "success",
+        })
+        let alertInterval = setInterval(() => {
+          setAlert({
+            isAlert: false,
+            message: "",
+            status: null,
+          });
+          clearInterval(alertInterval);
+        }, 4000)
+      }, 1500);
     }
   }
 

@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Leaf1, Leaf2, about } from "../assets";
+import { AboutData } from "../utils/helper";
 
 const About = () => {
   return (
@@ -29,29 +30,17 @@ const About = () => {
          {/* image section  */}
          <div className="w-full flex items-center justify-center px-8">
             <div className="w-full lg:w-96 p-[2px] rounded-md bg-gradient-to-br from bg-primary to-secondary relative">
-                <img src={about} className="w-full rounded-md h-auto object-contain" alt=""/>
+                <img src={about} className="w-full rounded-md h-auto object-contain" alt="Profile About"/>
                 <div className="absolute w-full h-full -top-3 -left-2 bg-gradient-to-br from bg-primary to-secondary rounded-md blur-[5px] -z-10"></div>
             </div>
          </div>
           {/* text content  */}
-          <div className="w-full px-8 flex flex-col gap-4 items-start justify-start">
-              <p className="text-texlight text-base tracking-wide text-justify">
-                  I am a Software Engineer with a passion for building dynamic and user-friendly web applications. My
-                  journey in the tech world started with a solid foundation in computer science, which I've built upon
-                  through hands-on experience in both trainee and junior software engineer roles.
-              </p>
-              <p className="text-texlight text-base tracking-wide text-justify">
-                  I have a proven track record of contributing to front-end development, leveraging my expertise in
-                  HTML, CSS, JavaScript, React, NextJs and Typescript to craft engaging user interfaces. I excel at
-                  collaborating with backend teams to ensure seamless integration and optimal performance of web
-                  applications. My adaptability is evident in my ability to tailor web projects for various platforms,
-                  ensuring a consistent and enjoyable experience for all users.
-              </p>
-              <p className="text-texlight text-base tracking-wide text-justify">
-                  Beyond my core skills, I am a proactive learner, constantly expanding my knowledge base to stay at the
-                  forefront of technology. I am currently exploring the realms of Node.js, NestJS, and Python Django,
-                  showcasing my commitment to professional development and my eagerness to tackle new challenges.
-              </p>
+          <div className="w-full px-8 flex flex-col gap-6 items-start justify-start">
+              {AboutData.paragraphs.map((paragraph, index) => (
+                  <p key={`about-para-${index}`} className="text-gray-300 text-lg lg:text-xl font-light tracking-wide leading-relaxed text-left">
+                      {paragraph}
+                  </p>
+              ))}
           </div>
       </div>
     </section>
