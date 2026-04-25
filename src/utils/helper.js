@@ -9,11 +9,12 @@ import {
   FaUser,
   FaYoutube,
 } from "react-icons/fa6";
-import { ChatApp, OpenAI } from "../assets";
+import { OpenAI } from "../assets";
 
 import Empathika from "../assets/img/Project/Empathika.png";
 import Cartup from "../assets/img/Project/cartup.png";
-import NewsLetter from "../assets/img/Project/newsLetter.png";
+import ExpenseTrackerApi from "../assets/img/Project/expense-api.png";
+import ExpenseTracker from "../assets/img/Project/expense.png";
 import Tasker from "../assets/img/Project/tasker.png";
 
 export const Socials = [
@@ -95,18 +96,30 @@ export const ProjectsData = [
     imgSrc: OpenAI,
     gitURL: "https://github.com/JithanRoy/Imaginify",
   },
+  //   {
+  //     id: `chatapp-${Date.now()}`,
+  //     name: "Chat App Build",
+  //     imgSrc: ChatApp,
+  //     gitURL: "https://github.com/Vetrivel-VP",
+  //   },
   {
-    id: `chatapp-${Date.now()}`,
-    name: "Chat App Build",
-    imgSrc: ChatApp,
-    gitURL: "https://github.com/Vetrivel-VP",
+    id: `expenseTracker-${Date.now()}`,
+    name: "Expense Tracker",
+    imgSrc: ExpenseTracker,
+    gitURL: "https://github.com/JithanRoy/expense-tracker",
   },
   {
-    id: `newsLatter-${Date.now()}`,
-    name: "Newsletter Signup UI",
-    imgSrc: NewsLetter,
-    gitURL: "https://github.com/JithanRoy/NewsLetter-UI-Build",
+    id: `expenseTrackerApi-${Date.now()}`,
+    name: "Expense Tracker API",
+    imgSrc: ExpenseTrackerApi,
+    gitURL: "https://github.com/JithanRoy/expense-tracker-api",
   },
+  //   {
+  //     id: `newsLatter-${Date.now()}`,
+  //     name: "Newsletter Signup UI",
+  //     imgSrc: NewsLetter,
+  //     gitURL: "https://github.com/JithanRoy/NewsLetter-UI-Build",
+  //   },
   {
     id: `pixabayclone-${Date.now()}`,
     name: "Tasker",

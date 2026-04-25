@@ -55,7 +55,7 @@ const ProjectCard = ({ project, index }) => {
     >
       <motion.img
         whileHover={{ scale: 1.1 }}
-        className="w-full h-full object-contain rounded-lg"
+        className="w-full h-64 object-cover rounded-lg"
         src={project.imgSrc}
       />
       {isHovered && (
