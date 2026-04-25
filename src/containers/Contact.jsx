@@ -1,3 +1,4 @@
+import emailjs from "@emailjs/browser";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { Leaf1, Leaf2 } from "../assets";
@@ -41,30 +42,57 @@ const Contact = () => {
         clearInterval(alertInterval);
       }, 4000);
     } else {
-      // Simulate API call
       setAlert({
         isAlert: true,
         message: "Sending message...",
         status: "success",
       });
 
-      setTimeout(() => {
-        setData({ firstName: "", lastName: "", email: "", message: "" });
-        //throw that alert message
-        setAlert({
-          isAlert: true,
-          message: "Thanks for submitting your request",
-          status: "success",
-        });
-        let alertInterval = setInterval(() => {
-          setAlert({
-            isAlert: false,
-            message: "",
-            status: null,
-          });
-          clearInterval(alertInterval);
-        }, 4000);
-      }, 1500);
+      const templateParams = {
+        from_name: `${data.firstName} ${data.lastName}`,
+        to_name: "Jithan Roy",
+        reply_to: data.email,
+        message: data.message,
+      };
+
+      emailjs
+        .send(
+          "service_le7sg66", // Replace with your Service ID
+          "template_nits4h8", // Replace with your Template ID
+          templateParams,
+          "kWAi9UQGxYN0veZ_H", // Replace with your Public Key
+        )
+        .then(
+          (response) => {
+            setData({ firstName: "", lastName: "", email: "", message: "" });
+            setAlert({
+              isAlert: true,
+              message: "Thanks for submitting your request!",
+              status: "success",
+            });
+            setTimeout(() => {
+              setAlert({
+                isAlert: false,
+                message: "",
+                status: null,
+              });
+            }, 4000);
+          },
+          (err) => {
+            setAlert({
+              isAlert: true,
+              message: "Failed to send message, please try again later",
+              status: "warning",
+            });
+            setTimeout(() => {
+              setAlert({
+                isAlert: false,
+                message: "",
+                status: null,
+              });
+            }, 4000);
+          },
+        );
     }
   };
 
