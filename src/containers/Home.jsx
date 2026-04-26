@@ -63,7 +63,7 @@ const Home = () => {
                 ease: "linear",
               }}
               src={Hero}
-              className="w-80 h-80 lg:w-96 lg:h-96 object-cover rounded-full shadow-[0_0_40px_rgba(0,255,170,0.4)] border-[8px] border-primary/30 relative z-10"
+              className="w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 object-cover rounded-full shadow-[0_0_40px_rgba(0,255,170,0.4)] border-[8px] border-primary/30 relative z-10"
             />
           </div>
         </div>

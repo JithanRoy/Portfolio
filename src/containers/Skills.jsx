@@ -44,7 +44,7 @@ const Skills = () => {
         </div>
 
         {/* image section  */}
-        <div className="w-full flex md:flex-col gap-4 items-center justify-center px-8">
+        <div className="w-full flex flex-col gap-4 items-center justify-center px-4 md:px-8">
           {SkillsData.skills.map((skillItem, index) => (
             <SkillCard
               key={`skill-card-${index}`}

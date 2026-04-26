@@ -57,10 +57,10 @@ const Contact = () => {
 
       emailjs
         .send(
-          "service_le7sg66", // Replace with your Service ID
-          "template_nits4h8", // Replace with your Template ID
+          "service_le7sg66",
+          "template_nits4h8",
           templateParams,
-          "kWAi9UQGxYN0veZ_H", // Replace with your Public Key
+          "kWAi9UQGxYN0veZ_H",
         )
         .then(
           (response) => {

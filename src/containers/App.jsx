@@ -3,7 +3,7 @@ import { About, Contact, Header, Home, ParticlesContainer, Projects, Skills, Foo
 
 const App = () => {
   return (
-    <div className="w-full xl:w-[1600px] py-32 px-4 lg:px-12 pr-4 lg:pr-32 overflow-hidden">
+    <div className="w-full xl:w-[1600px] py-12 md:py-32 px-4 md:px-12 lg:px-32 mx-auto overflow-hidden">
         {/* particles container */}  
         <ParticlesContainer />
         {/* header */}
