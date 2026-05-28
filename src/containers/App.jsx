@@ -1,37 +1,32 @@
-import React from "react";
-import { About, Contact, Header, Home, ParticlesContainer, Projects, Skills, Footer } from './';
+import React, { useRef } from "react";
+import { About, Contact, Home, Projects, Skills, Footer } from "./";
+import { Loader, ScrollProgress } from "../components";
+import useLenis from "../hooks/useLenis";
+import useLoader from "../hooks/useLoader";
 
 const App = () => {
+  const containerRef = useRef(null);
+  const { progress, isLoading } = useLoader();
+  useLenis(containerRef);
+
   return (
-    <div className="w-full xl:w-[1600px] py-12 md:py-32 px-4 md:px-12 lg:px-32 mx-auto overflow-hidden">
-        {/* Fire Glow Border */}
-        <div className="fixed inset-0 border-2 border-transparent pointer-events-none z-[9999] animate-fire"></div>
-        {/* particles container */}  
-        <ParticlesContainer />
-        {/* header */}
-        <Header />
+    <>
+      <Loader progress={progress} isLoading={isLoading} />
 
-        {/* home container */}
+      <main
+        ref={containerRef}
+        className="snap-container bg-bg-deep text-text-primary"
+      >
         <Home />
-
-        {/* services count cards  */}
-        {/*<ServiceCount />*/}
-
-        {/* about container */}
         <About />
-
-        {/* skills container */}
         <Skills />
-
-        {/* projects container */}
         <Projects />
-
-        {/* contact container */}
         <Contact />
-
-        {/* footer container */}
         <Footer />
-    </div>
+      </main>
+
+      <ScrollProgress containerRef={containerRef} />
+    </>
   );
 };
 

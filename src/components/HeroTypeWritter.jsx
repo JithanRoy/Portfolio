@@ -1,33 +1,30 @@
 import React, { useEffect, useState } from "react";
 
-const HeroTypeWritter = ({words, speed}) => {
-  const [currentWordIndex, setCurrentWordIndex] = useState(0);
-  const [currentText, setCurrentText] = useState("");
-  const currentWord = words[currentWordIndex];
+const HeroTypeWritter = ({ words, speed = 90 }) => {
+  const [wordIdx, setWordIdx] = useState(0);
+  const [text, setText] = useState("");
+  const word = words[wordIdx];
 
-  useEffect(()=> {
-    let charIndex = 0;
-    const typingInterval = setInterval(() => {
-        if( charIndex <= currentWord.length ) {
-          setCurrentText(currentWord.slice(0, charIndex));
-          charIndex++;
-        } else {
-          // word typed out, clear and move to the next word
-          clearInterval(typingInterval);
-          setTimeout(()=> {
-              setCurrentWordIndex((prev) => prev === words.length - 1 ? 0 : prev + 1);
-          }, 1000)
-        }
+  useEffect(() => {
+    let i = 0;
+    const id = setInterval(() => {
+      if (i <= word.length) {
+        setText(word.slice(0, i));
+        i++;
+      } else {
+        clearInterval(id);
+        setTimeout(() => {
+          setWordIdx((p) => (p === words.length - 1 ? 0 : p + 1));
+        }, 1200);
+      }
     }, speed);
-
-    return () => {
-      clearInterval(typingInterval);
-    }
-  },[currentWord, speed, words])
+    return () => clearInterval(id);
+  }, [word, speed, words]);
 
   return (
-    <span className="tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary mt-7">
-       {currentText}
+    <span className="gradient-text font-medium">
+      {text}
+      <span className="inline-block w-[2px] h-[1em] align-middle bg-accent-teal animate-pulse ml-1" />
     </span>
   );
 };

@@ -1,44 +1,33 @@
 import React from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 const Alert = ({ status, message }) => {
-  console.log(status, message);
   const statusConfig = {
-    success: {
-      bgColor: "bg-primary",
-      borderColor: "border-primary",
-      textColor: "text-primary",
-    },
-    warning: {
-      bgColor: "bg-yellow-400",
-      borderColor: "border-yellow-400",
-      textColor: "text-yellow-400",
-    },
-    danger: {
-      bgColor: "bg-red-400",
-      borderColor: "border-red-400",
-      textColor: "text-red-400",
-    }
+    success: { ring: "border-accent-teal", text: "text-accent-teal", bar: "bg-accent-teal" },
+    warning: { ring: "border-accent-amber", text: "text-accent-amber", bar: "bg-accent-amber" },
+    danger: { ring: "border-accent-coral", text: "text-accent-coral", bar: "bg-accent-coral" },
   };
-  let config = statusConfig[status];
+  const config = statusConfig[status] || statusConfig.success;
 
   return (
-      <motion.div 
-        className = {`fixed top-12 right-12 px-3 py-3 rounded-md border ${config.borderColor} w-auto overflow-hidden backdrop-blur-md`}
-      >
-          <p className={`${config.textColor}`}>{message}</p>
-          <div className="absolute inset-x-0 h-1 bottom-0 bg-[rgba(255,255,255,0.5)]">
-                <motion.div
-                  initial={{ width: 0 }}
-                  animate={{ width: "100%" }}
-                  exit={{ width: 0 }}
-                  transition={{ duration: 4, delay: 0.5 }}
-                  className={`${config.bgColor} h-full`}
-                > 
-            </motion.div>
-          </div>
-      </motion.div>
-  )
+    <motion.div
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      className={`fixed top-8 right-8 z-[80] px-4 py-3 rounded-md border ${config.ring} bg-bg-surface/90 backdrop-blur-md min-w-[240px]`}
+    >
+      <p className={`${config.text} text-sm`}>{message}</p>
+      <div className="absolute inset-x-0 bottom-0 h-[2px] bg-white/10 overflow-hidden rounded-b-md">
+        <motion.div
+          initial={{ width: 0 }}
+          animate={{ width: "100%" }}
+          exit={{ width: 0 }}
+          transition={{ duration: 4 }}
+          className={`${config.bar} h-full`}
+        />
+      </div>
+    </motion.div>
+  );
 };
 
 export default Alert;

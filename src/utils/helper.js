@@ -150,7 +150,7 @@ export const HeroData = {
   name: "Jithan Roy",
   titles: [
     "a Software Engineer..",
-    "a Team Lead..",
+    "a Team Leader..",
     "a Full-stack Developer..",
   ],
   description:

@@ -1,5 +1,5 @@
 export { default as HeroTypeWritter } from "./HeroTypeWritter";
 export { default as HomeSocialLinks } from "./HomeSocialLinks";
-export { default as MenuItem } from "./MenuItem";
-export { default as ServiceCard } from "./ServiceCard";
-export { default as SkillCard } from "./SkillCard";
+export { default as Loader } from "./Loader";
+export { default as SectionLayout } from "./SectionLayout";
+export { default as ScrollProgress } from "./ScrollProgress";

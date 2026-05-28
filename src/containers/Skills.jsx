@@ -1,62 +1,97 @@
-import { motion } from "framer-motion";
-import { Leaf1, Leaf2 } from "../assets";
-import { SkillCard } from "../components";
+import React, { useEffect, useState, useRef } from "react";
+import { motion, useInView, useMotionValue, animate } from "motion/react";
+import { SectionLayout } from "../components";
+import { Blob, DotGrid, NumberMark } from "../components/Decorations";
 import { SkillsData } from "../utils/helper";
+import { fromLeft, fadeUp } from "../utils/motionVariants";
+
+const SkillBar = ({ skill, percentage, color, inView }) => {
+  const target = parseInt(percentage, 10);
+  const [display, setDisplay] = useState(0);
+  const mv = useMotionValue(0);
+
+  useEffect(() => {
+    if (!inView) {
+      setDisplay(0);
+      mv.set(0);
+      return;
+    }
+    const controls = animate(mv, target, {
+      duration: 1.2,
+      ease: [0.22, 1, 0.36, 1],
+      onUpdate: (v) => setDisplay(Math.round(v)),
+    });
+    return () => controls.stop();
+  }, [inView, target, mv]);
+
+  return (
+    <motion.div variants={fadeUp} className="w-full">
+      <div className="flex justify-between items-baseline mb-2">
+        <span className="text-text-primary text-sm font-medium tracking-wide">{skill}</span>
+        <span className="font-display text-text-muted text-sm tabular-nums">{display}%</span>
+      </div>
+      <div className="h-[3px] w-full bg-white/8 rounded-full overflow-hidden">
+        <motion.div
+          initial={{ width: 0 }}
+          animate={inView ? { width: `${target}%` } : { width: 0 }}
+          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+          style={{ background: color }}
+          className="h-full rounded-full"
+        />
+      </div>
+    </motion.div>
+  );
+};
 
 const Skills = () => {
-  return (
-    <section
-      id="skills"
-      className="flex items-center justify-center flex-col gap-12 my-12"
-    >
-      {/* title  */}
-      <div className="w-full flex items-center justify-center py-24">
-        <motion.div
-          initial={{ opacity: 0, width: 0 }}
-          animate={{ opacity: 1, width: 200 }}
-          exit={{ opacity: 0, width: 0 }}
-          transition={{ delay: 0.4 }}
-          className="flex items-center gap-5"
-        >
-          <img src={Leaf1} className="w-6 h-auto object-contain" alt="leaf" />
-          <p className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary capitalize text-xl font-serif tracking-widest">
-            skills
-          </p>
-          <img src={Leaf2} className="w-6 h-auto object-contain" alt="leaf" />
-        </motion.div>
-      </div>
+  const ref = useRef(null);
+  const inView = useInView(ref, { amount: 0.3 });
+  const intro = SkillsData.paragraphs[SkillsData.paragraphs.length - 1];
 
-      {/* main content  */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 w-full">
-        {/* text content  */}
-        <div className="w-full px-8 flex flex-col gap-6 items-start justify-start">
-          <p className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary capitalize text-xl lg:text-2xl font-serif tracking-widest font-semibold mb-2">
-            My Skills & work Experience
-          </p>
-          {SkillsData.paragraphs.map((paragraph, index) => (
-            <p
-              key={`skill-para-${index}`}
-              className="text-gray-300 text-lg lg:text-xl font-light tracking-wide leading-relaxed text-left"
-            >
-              {paragraph}
-            </p>
-          ))}
+  return (
+    <SectionLayout
+      id="skills"
+      index={3}
+      label="Skills & Experience"
+      staggerMode="fast"
+      leftDecor={
+        <>
+          <Blob className="top-1/4 -left-12" color="violet" size={340} />
+          <DotGrid className="bottom-16 left-10" color="teal" />
+        </>
+      }
+      rightDecor={<NumberMark value="03" className="-bottom-8 -right-8" />}
+    >
+      <div ref={ref} className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="flex flex-col gap-6">
+          <motion.div
+            variants={fromLeft}
+            className="font-display font-bold text-4xl sm:text-5xl leading-tight"
+          >
+            <span className="block gradient-text">What I do</span>
+            <span className="block text-text-primary">every day.</span>
+          </motion.div>
+          <motion.p
+            variants={fadeUp}
+            className="text-text-muted text-base lg:text-lg leading-relaxed"
+          >
+            {intro}
+          </motion.p>
         </div>
 
-        {/* image section  */}
-        <div className="w-full flex flex-col gap-4 items-center justify-center px-4 md:px-8">
-          {SkillsData.skills.map((skillItem, index) => (
-            <SkillCard
-              key={`skill-card-${index}`}
-              skill={skillItem.skill}
-              percentage={skillItem.percentage}
-              color={skillItem.color}
-              move={skillItem.move}
+        <div className="flex flex-col gap-5">
+          {SkillsData.skills.map((s) => (
+            <SkillBar
+              key={s.skill}
+              skill={s.skill}
+              percentage={s.percentage}
+              color={s.color}
+              inView={inView}
             />
           ))}
         </div>
       </div>
-    </section>
+    </SectionLayout>
   );
 };
 

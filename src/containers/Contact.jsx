@@ -1,183 +1,171 @@
+import React, { useState } from "react";
 import emailjs from "@emailjs/browser";
-import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
-import { Leaf1, Leaf2 } from "../assets";
-// import { db } from "../config/firebase.config"
-// import { addDoc, collection } from "firebase/firestore";
+import { AnimatePresence, motion } from "motion/react";
+import { FaEnvelope, FaPhone, FaLocationDot } from "react-icons/fa6";
+import { SectionLayout } from "../components";
+import { Blob, NumberMark, Shape } from "../components/Decorations";
 import Alert from "./Alert";
+import { fromLeft, fromRight, fadeUp } from "../utils/motionVariants";
+
+const initialData = { firstName: "", lastName: "", email: "", message: "" };
 
 const Contact = () => {
-  const [data, setData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    message: "",
-  });
-  const [alert, setAlert] = useState({
-    isAlert: false,
-    message: "",
-    status: null,
-  });
+  const [data, setData] = useState(initialData);
+  const [alert, setAlert] = useState({ isAlert: false, message: "", status: null });
 
-  const handleTextChange = (e) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
-    //update the state for the corresponding input values
-    setData((prevData) => ({ ...prevData, [name]: value }));
+    setData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const sendMessage = async () => {
+  const dismissLater = () => {
+    setTimeout(
+      () => setAlert({ isAlert: false, message: "", status: null }),
+      4000
+    );
+  };
+
+  const sendMessage = () => {
     if (data.email === "" || data.message === "") {
-      // throw an alert
-      setAlert({
-        isAlert: true,
-        message: "Required fields cannot be empty",
-        status: "warning",
-      });
-      let alertInterval = setInterval(() => {
-        setAlert({
-          isAlert: false,
-          message: "",
-          status: null,
-        });
-        clearInterval(alertInterval);
-      }, 4000);
-    } else {
-      setAlert({
-        isAlert: true,
-        message: "Sending message...",
-        status: "success",
-      });
-
-      const templateParams = {
-        from_name: `${data.firstName} ${data.lastName}`,
-        to_name: "Jithan Roy",
-        reply_to: data.email,
-        message: data.message,
-      };
-
-      emailjs
-        .send(
-          "service_le7sg66",
-          "template_nits4h8",
-          templateParams,
-          "kWAi9UQGxYN0veZ_H",
-        )
-        .then(
-          (response) => {
-            setData({ firstName: "", lastName: "", email: "", message: "" });
-            setAlert({
-              isAlert: true,
-              message: "Thanks for submitting your request!",
-              status: "success",
-            });
-            setTimeout(() => {
-              setAlert({
-                isAlert: false,
-                message: "",
-                status: null,
-              });
-            }, 4000);
-          },
-          (err) => {
-            setAlert({
-              isAlert: true,
-              message: "Failed to send message, please try again later",
-              status: "warning",
-            });
-            setTimeout(() => {
-              setAlert({
-                isAlert: false,
-                message: "",
-                status: null,
-              });
-            }, 4000);
-          },
-        );
+      setAlert({ isAlert: true, message: "Required fields cannot be empty", status: "warning" });
+      dismissLater();
+      return;
     }
+    setAlert({ isAlert: true, message: "Sending message...", status: "success" });
+
+    const templateParams = {
+      from_name: `${data.firstName} ${data.lastName}`,
+      to_name: "Jithan Roy",
+      reply_to: data.email,
+      message: data.message,
+    };
+
+    emailjs
+      .send("service_le7sg66", "template_nits4h8", templateParams, "kWAi9UQGxYN0veZ_H")
+      .then(
+        () => {
+          setData(initialData);
+          setAlert({ isAlert: true, message: "Thanks for submitting your request!", status: "success" });
+          dismissLater();
+        },
+        () => {
+          setAlert({ isAlert: true, message: "Failed to send message, please try again later", status: "warning" });
+          dismissLater();
+        }
+      );
   };
 
   return (
-    <section
+    <SectionLayout
       id="contact"
-      className="flex items-center justify-center flex-col gap-12 my-12"
+      index={5}
+      label="Let's Talk"
+      staggerMode="fast"
+      leftDecor={<Blob className="top-1/4 -left-12" color="teal" size={340} />}
+      rightDecor={
+        <>
+          <Blob className="bottom-0 -right-16" color="coral" size={320} delay={1} />
+          <Shape variant="ring" color="amber" size={80} className="top-16 right-16" />
+          <NumberMark value="05" className="-bottom-10 -right-6" />
+        </>
+      }
     >
-      {/* Toast alert notification */}
       <AnimatePresence>
-        {alert.isAlert && (
-          <Alert status={alert.status} message={alert.message} />
-        )}
+        {alert.isAlert && <Alert status={alert.status} message={alert.message} />}
       </AnimatePresence>
 
-      {/* title  */}
-      <div className="w-full flex items-center justify-center py-24">
-        <motion.div
-          initial={{ opacity: 0, width: 0 }}
-          animate={{ opacity: 1, width: 200 }}
-          exit={{ opacity: 0, width: 0 }}
-          transition={{ delay: 0.4 }}
-          className="flex items-center gap-5"
-        >
-          <img src={Leaf1} className="w-6 h-auto object-contain" alt="leaf" />
-          <p className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary capitalize text-xl font-serif tracking-widest whitespace-nowrap">
-            Contact Me
-          </p>
-          <img src={Leaf2} className="w-6 h-auto object-contain" alt="leaf" />
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="flex flex-col gap-8">
+          <motion.h2
+            variants={fromLeft}
+            className="font-display font-bold text-4xl sm:text-5xl leading-tight"
+          >
+            <span className="block text-text-primary">Let's build</span>
+            <span className="block gradient-text">something good.</span>
+          </motion.h2>
+          <motion.p variants={fadeUp} className="text-text-muted text-base lg:text-lg">
+            Have an idea, a role, or just want to chat? Drop a message — I usually reply within a day.
+          </motion.p>
+
+          <motion.div variants={fadeUp} className="flex flex-col gap-4 mt-2">
+            <a
+              href="mailto:jithanroyjony@gmail.com"
+              className="flex items-center gap-4 text-text-muted hover:text-accent-teal transition-colors"
+            >
+              <span className="w-10 h-10 rounded-full bg-bg-elevated border border-white/10 flex items-center justify-center">
+                <FaEnvelope className="text-accent-teal" />
+              </span>
+              jithanroyjony@gmail.com
+            </a>
+            <a
+              href="tel:+8801521327660"
+              className="flex items-center gap-4 text-text-muted hover:text-accent-teal transition-colors"
+            >
+              <span className="w-10 h-10 rounded-full bg-bg-elevated border border-white/10 flex items-center justify-center">
+                <FaPhone className="text-accent-teal" />
+              </span>
+              +880 1521 327 660
+            </a>
+            <div className="flex items-center gap-4 text-text-muted">
+              <span className="w-10 h-10 rounded-full bg-bg-elevated border border-white/10 flex items-center justify-center">
+                <FaLocationDot className="text-accent-teal" />
+              </span>
+              Dhaka, Bangladesh
+            </div>
+          </motion.div>
+        </div>
+
+        <motion.div variants={fromRight} className="w-full">
+          <div className="relative">
+            <div className="absolute -inset-1 bg-gradient-primary opacity-20 rounded-2xl blur-2xl" />
+            <div className="relative bg-bg-surface/80 backdrop-blur border border-white/10 rounded-2xl p-6 sm:p-8 flex flex-col gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <input
+                  type="text"
+                  name="firstName"
+                  placeholder="First name"
+                  value={data.firstName}
+                  onChange={handleChange}
+                  className="w-full px-0 py-3 bg-transparent border-0 border-b border-white/15 focus:border-accent-teal outline-none text-text-primary placeholder:text-text-muted/60 transition-colors"
+                />
+                <input
+                  type="text"
+                  name="lastName"
+                  placeholder="Last name"
+                  value={data.lastName}
+                  onChange={handleChange}
+                  className="w-full px-0 py-3 bg-transparent border-0 border-b border-white/15 focus:border-accent-teal outline-none text-text-primary placeholder:text-text-muted/60 transition-colors"
+                />
+              </div>
+              <input
+                type="email"
+                name="email"
+                placeholder="Email *"
+                value={data.email}
+                onChange={handleChange}
+                className="w-full px-0 py-3 bg-transparent border-0 border-b border-white/15 focus:border-accent-teal outline-none text-text-primary placeholder:text-text-muted/60 transition-colors"
+              />
+              <textarea
+                name="message"
+                rows="5"
+                placeholder="Tell me about it *"
+                value={data.message}
+                onChange={handleChange}
+                className="w-full px-0 py-3 bg-transparent border-0 border-b border-white/15 focus:border-accent-teal outline-none text-text-primary placeholder:text-text-muted/60 resize-none transition-colors"
+              />
+              <motion.button
+                onClick={sendMessage}
+                whileHover={{ y: -2 }}
+                className="self-end mt-2 inline-flex items-center gap-3 px-7 py-3 rounded-full bg-accent-teal text-bg-deep font-semibold hover:bg-accent-amber transition-colors"
+              >
+                Send message
+                <span>→</span>
+              </motion.button>
+            </div>
+          </div>
         </motion.div>
       </div>
-
-      {/* main content  */}
-      <div className="w-full flex flex-col items-center justify-start gap-4">
-        <div className="w-full lg:w-[600px] p-2 flex flex-col items-center justify-start gap-4">
-          <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-4">
-            <input
-              type="text"
-              placeholder="First Name"
-              name="firstName"
-              value={data.firstName}
-              onChange={handleTextChange}
-              className="w-full px-4 py-3 rounded-md border border-[rgba(255,255,255,0.3)] bg-transparent focus:border-primary outline-none text-white"
-            />
-
-            <input
-              type="text"
-              placeholder="Last Name"
-              name="lastName"
-              value={data.lastName}
-              onChange={handleTextChange}
-              className="w-full px-4 py-3 rounded-md border border-[rgba(255,255,255,0.3)] bg-transparent focus:border-primary outline-none text-white"
-            />
-          </div>
-
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={data.email}
-            onChange={handleTextChange}
-            className="w-full px-4 py-3 rounded-md border border-[rgba(255,255,255,0.3)] bg-transparent focus:border-primary outline-none text-white"
-          ></input>
-
-          <textarea
-            name="message"
-            id=""
-            rows="10"
-            value={data.message}
-            onChange={handleTextChange}
-            className="w-full px-4 py-3 rounded-md border border-[rgba(255,255,255,0.3)] bg-transparent focus:border-primary outline-none text-white"
-            placeholder="Message here..."
-          ></textarea>
-
-          <div className="w-full flex items-center justify-center lg:justify-end">
-            <button
-              className="px-12 py-3 bg-gradient-to-br from-primary to-secondary rounded-md w-full lg:w-auto text-bgPrimary font-semibold hover:bg-gradient-to-br hover:from-black hover:to-black hover:border hover:border-primary hover:text-primary"
-              onClick={sendMessage}
-            >
-              Send
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
+    </SectionLayout>
   );
 };
 

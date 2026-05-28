@@ -1,70 +1,82 @@
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Leaf1, Leaf2 } from "../assets";
+import { motion } from "motion/react";
+import { FaGithub, FaArrowUpRightFromSquare } from "react-icons/fa6";
+import { SectionLayout } from "../components";
+import { Blob, Shape, DotGrid, NumberMark } from "../components/Decorations";
 import { ProjectsData } from "../utils/helper";
-import { FaGithub } from "react-icons/fa6";
+import { fadeUp, fromLeft } from "../utils/motionVariants";
+
+const ProjectCard = ({ project }) => {
+  const [hovered, setHovered] = useState(false);
+
+  return (
+    <motion.a
+      variants={fadeUp}
+      href={project.gitURL}
+      target="_blank"
+      rel="noopener noreferrer"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      whileHover={{ y: -6 }}
+      className="group relative block rounded-2xl overflow-hidden bg-bg-elevated border border-white/5 aspect-[4/3]"
+    >
+      <motion.img
+        src={project.imgSrc}
+        alt={project.name}
+        animate={{ scale: hovered ? 1.08 : 1 }}
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        className="absolute inset-0 w-full h-full object-cover"
+      />
+      <motion.div
+        initial={false}
+        animate={{ y: hovered ? "0%" : "100%" }}
+        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+        className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-bg-deep/95 via-bg-deep/80 to-transparent p-5 flex items-end justify-between"
+      >
+        <span className="text-accent-teal font-medium tracking-wide">{project.name}</span>
+        <span className="flex items-center gap-2 text-text-primary">
+          {project.gitURL?.includes("github") ? <FaGithub /> : <FaArrowUpRightFromSquare />}
+        </span>
+      </motion.div>
+    </motion.a>
+  );
+};
 
 const Projects = () => {
   return (
-    <section 
-    id="projects" 
-    className="flex items-center justify-center flex-col gap-12 my-12"
+    <SectionLayout
+      id="projects"
+      index={4}
+      label="Selected Work"
+      staggerMode="fast"
+      leftDecor={<DotGrid className="bottom-10 left-10" color="amber" />}
+      rightDecor={
+        <>
+          <Shape variant="arc" color="coral" size={160} className="top-12 right-12" spin={false} />
+          <Blob className="bottom-0 -right-12" color="teal" size={280} delay={1} />
+          <NumberMark value="04" className="-top-6 -right-6" />
+        </>
+      }
     >
-      {/* title  */}
-      <div className="w-full flex items-center justify-center py-24">
-        <motion.div
-          initial={{opacity:0, width: 0}}
-          animate={{opacity:1, width: 200}}
-          exit={{opacity:0, width: 0}}
-          transition={{delay: 0.4}}
-          className="flex items-center gap-5">
-           <img src={Leaf1} className="w-6 h-auto object-contain" alt="leaf" />
-            <p className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary capitalize text-xl font-serif tracking-widest">
-                Projects
-            </p>
-           <img src={Leaf2} className="w-6 h-auto object-contain" alt="leaf" />
-        </motion.div>
+      <div className="mb-10">
+        <motion.h2
+          variants={fromLeft}
+          className="font-display font-bold text-4xl sm:text-5xl leading-tight"
+        >
+          <span className="text-text-primary">Selected</span>{" "}
+          <span className="gradient-text">work.</span>
+        </motion.h2>
+        <motion.p variants={fadeUp} className="text-text-muted mt-3 max-w-xl">
+          A few things I've built recently — across frontend, backend, and full-stack.
+        </motion.p>
       </div>
 
-      {/* main content  */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 w-full">
-        <AnimatePresence>
-          {
-            ProjectsData && 
-            ProjectsData.map((project, index) => (
-              <ProjectCard project={project} key={index} />
-            ))
-          }
-        </AnimatePresence>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {ProjectsData.map((p) => (
+          <ProjectCard key={p.id} project={p} />
+        ))}
       </div>
-    </section>
-  )
-};
-
-const ProjectCard = ({ project, index }) => {
-  const [isHovered, setIsHoverred] = useState(false);
-  return (
-    <motion.a
-      href={project?.gitURL}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="overflow-hidden cursor-pointer relative rounded-md"
-      key={project.id}
-      onMouseEnter={() => setIsHoverred(true)}
-      onMouseLeave={() => setIsHoverred(false)}
-    >
-      <motion.img
-        whileHover={{ scale: 1.1 }}
-        className="w-full h-64 object-cover rounded-lg"
-        src={project.imgSrc}
-      />
-      {isHovered && (
-        <motion.div className="absolute inset-0 backdrop-blur-md bg-[rgba(0,0,0,0.6)] flex justify-center items-center py-auto text-center gap-2">
-          <p className="text-xl text-primary">{project?.name}</p>
-          <FaGithub className="text-3xl text-white hover:text-primary" />
-        </motion.div>
-      )}
-    </motion.a>
+    </SectionLayout>
   );
 };
 
