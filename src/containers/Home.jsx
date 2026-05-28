@@ -1,4 +1,5 @@
 import { AnimatePresence, motion } from "motion/react";
+import { FiDownload } from "react-icons/fi";
 import {
   SiDocker,
   SiGo,
@@ -138,17 +139,31 @@ const Home = () => {
             </AnimatePresence>
           </motion.div>
 
-          <motion.a
+          <motion.div
             variants={fadeUp}
-            href="mailto:jithanroyjony@gmail.com"
-            whileHover={{ y: -2 }}
-            className="mt-6 group inline-flex items-center gap-3 px-7 py-3 rounded-full bg-accent-teal text-bg-deep font-semibold tracking-wide hover:bg-accent-amber transition-colors"
+            className="mt-6 flex flex-wrap items-center gap-3"
           >
-            Hire me
-            <span className="inline-block transition-transform group-hover:translate-x-1">
-              →
-            </span>
-          </motion.a>
+            <motion.a
+              href="mailto:jithanroyjony@gmail.com"
+              whileHover={{ y: -2 }}
+              className="group inline-flex items-center gap-3 px-7 py-3 rounded-full bg-accent-teal text-bg-deep font-semibold tracking-wide hover:bg-accent-amber transition-colors"
+            >
+              Hire me
+              <span className="inline-block transition-transform group-hover:translate-x-1">
+                →
+              </span>
+            </motion.a>
+
+            <motion.a
+              href={`${process.env.PUBLIC_URL}/Jithan_Roy.pdf`}
+              download="Jithan_Roy_CV.pdf"
+              whileHover={{ y: -2 }}
+              className="group inline-flex items-center gap-3 px-7 py-3 rounded-full border border-white/20 text-text-primary font-semibold tracking-wide hover:border-accent-teal hover:text-accent-teal transition-colors"
+            >
+              Download CV
+              <FiDownload className="text-base transition-transform group-hover:translate-y-0.5" />
+            </motion.a>
+          </motion.div>
         </div>
 
         <motion.div
