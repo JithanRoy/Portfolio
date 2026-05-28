@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
-import { FiBriefcase, FiMapPin, FiCalendar } from "react-icons/fi";
+import { AnimatePresence, motion, useInView } from "motion/react";
+import { useEffect, useRef, useState } from "react";
+import { FiBriefcase, FiCalendar, FiMapPin } from "react-icons/fi";
 import { SectionLayout } from "../components";
 import { Blob, DotGrid, NumberMark } from "../components/Decorations";
 import { ExperienceData } from "../utils/helper";
@@ -15,8 +15,42 @@ const yearOf = (period) => {
 };
 
 const Experience = () => {
-  const [activeIdx, setActiveIdx] = useState(ordered.length - 1);
+  const sectionRef = useRef(null);
+  const inView = useInView(sectionRef, { amount: 0.4 });
+  const [activeIdx, setActiveIdx] = useState(0);
+  const [autoplayDone, setAutoplayDone] = useState(false);
+  const hasPlayedRef = useRef(false);
   const active = ordered[activeIdx];
+
+  useEffect(() => {
+    if (!inView || hasPlayedRef.current) return;
+    hasPlayedRef.current = true;
+
+    const timers = [];
+    const STEP = 2000;
+    const SETTLE_DELAY = 2000;
+    // step through each milestone in order
+    ordered.forEach((_, i) => {
+      timers.push(setTimeout(() => setActiveIdx(i), i * STEP));
+    });
+    // settle: keep on last milestone (which is current role), just mark done
+    timers.push(
+      setTimeout(
+        () => {
+          setAutoplayDone(true);
+        },
+        (ordered.length - 1) * STEP + SETTLE_DELAY,
+      ),
+    );
+
+    return () => timers.forEach(clearTimeout);
+  }, [inView]);
+
+  const handleClick = (i) => {
+    hasPlayedRef.current = true;
+    setAutoplayDone(true);
+    setActiveIdx(i);
+  };
 
   return (
     <SectionLayout
@@ -32,7 +66,12 @@ const Experience = () => {
       }
       rightDecor={
         <>
-          <Blob className="bottom-0 -right-12" color="coral" size={240} delay={1.2} />
+          <Blob
+            className="bottom-0 -right-12"
+            color="coral"
+            size={240}
+            delay={1.2}
+          />
           <NumberMark value="04" className="-top-6 -right-6" />
         </>
       }
@@ -46,12 +85,19 @@ const Experience = () => {
           <span className="gradient-text">journey</span>
           <span className="text-text-primary"> so far.</span>
         </motion.h2>
-        <motion.p variants={fadeUp} className="text-text-muted text-sm lg:text-base mt-2">
+        <motion.p
+          variants={fadeUp}
+          className="text-text-muted text-sm lg:text-base mt-2"
+        >
           Four years of shipping, learning, and leveling up.
         </motion.p>
       </div>
 
-      <motion.div variants={fromLeft} className="relative max-w-5xl mx-auto">
+      <motion.div
+        ref={sectionRef}
+        variants={fromLeft}
+        className="relative max-w-5xl mx-auto"
+      >
         {/* horizontal rail with milestones */}
         <div className="relative mb-8">
           {/* background line */}
@@ -65,13 +111,15 @@ const Experience = () => {
               return (
                 <button
                   key={item.id}
-                  onClick={() => setActiveIdx(i)}
+                  onClick={() => handleClick(i)}
                   className="group flex flex-col items-center text-center px-2"
                 >
                   {/* year above */}
                   <span
                     className={`font-display text-sm lg:text-base tracking-widest mb-2 transition-colors ${
-                      isActive ? "text-accent-teal" : "text-text-muted/60 group-hover:text-text-muted"
+                      isActive
+                        ? "text-accent-teal"
+                        : "text-text-muted/60 group-hover:text-text-muted"
                     }`}
                   >
                     {yearOf(item.period)}
@@ -82,13 +130,21 @@ const Experience = () => {
                     {item.current && (
                       <motion.div
                         animate={{ scale: [1, 2, 1], opacity: [0.5, 0, 0.5] }}
-                        transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+                        transition={{
+                          duration: 2.4,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                        }}
                         className="absolute inset-0 rounded-full bg-accent-teal"
                       />
                     )}
                     <motion.div
                       animate={{ scale: isActive ? 1.3 : 1 }}
-                      transition={{ type: "spring", stiffness: 380, damping: 22 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 380,
+                        damping: 22,
+                      }}
                       className={`relative w-3 h-3 rounded-full border-[3px] border-bg-deep transition-colors ${
                         isActive
                           ? "bg-accent-teal shadow-[0_0_18px_rgba(0,173,181,0.9)]"
@@ -100,7 +156,9 @@ const Experience = () => {
                   {/* company name below */}
                   <span
                     className={`text-sm lg:text-base font-semibold mt-3 transition-colors leading-tight ${
-                      isActive ? "text-text-primary" : "text-text-muted/70 group-hover:text-text-muted"
+                      isActive
+                        ? "text-text-primary"
+                        : "text-text-muted/70 group-hover:text-text-muted"
                     }`}
                   >
                     {item.company}
@@ -123,10 +181,10 @@ const Experience = () => {
           <AnimatePresence mode="wait">
             <motion.div
               key={active.id}
-              initial={{ opacity: 0, y: 20, filter: "blur(6px)" }}
-              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              exit={{ opacity: 0, y: -10, filter: "blur(6px)" }}
-              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -30 }}
+              transition={{ duration: 0.45, ease: [0.32, 0.72, 0.32, 1] }}
               className="absolute inset-0"
             >
               {/* gradient border wrapper */}
@@ -154,7 +212,11 @@ const Experience = () => {
                     <motion.div
                       aria-hidden
                       animate={{ y: [-8, 8, -8], scale: [1, 1.05, 1] }}
-                      transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                      transition={{
+                        duration: 6,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }}
                       className="absolute -top-10 -left-10 w-40 h-40 rounded-full bg-gradient-primary opacity-30 blur-3xl pointer-events-none"
                     />
 
@@ -207,9 +269,13 @@ const Experience = () => {
                       {active.highlights.map((h, idx) => (
                         <motion.li
                           key={idx}
-                          initial={{ opacity: 0, x: -10 }}
+                          initial={{ opacity: 0, x: -8 }}
                           animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: 0.15 + idx * 0.06, duration: 0.4 }}
+                          transition={{
+                            delay: 0.1 + idx * 0.045,
+                            duration: 0.3,
+                            ease: [0.22, 1, 0.36, 1],
+                          }}
                           className="text-text-muted text-sm lg:text-[15px] leading-relaxed flex gap-3 group"
                         >
                           <span className="mt-2 flex-shrink-0 w-4 h-px bg-accent-teal/50 group-hover:bg-accent-teal group-hover:w-6 transition-all" />
@@ -226,9 +292,14 @@ const Experience = () => {
           </AnimatePresence>
         </div>
 
-        <p className="text-center text-[10px] tracking-widest uppercase text-text-muted/50 mt-4">
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: autoplayDone ? 1 : 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-center text-[10px] tracking-widest uppercase text-text-muted/50 mt-4"
+        >
           Click a milestone to explore
-        </p>
+        </motion.p>
       </motion.div>
     </SectionLayout>
   );
