@@ -89,7 +89,7 @@ const Projects = () => {
   return (
     <SectionLayout
       id="projects"
-      index={4}
+      index={5}
       label="Selected Work"
       staggerMode="fast"
       leftDecor={<DotGrid className="bottom-10 left-10" color="amber" />}
@@ -97,7 +97,7 @@ const Projects = () => {
         <>
           <Shape variant="arc" color="coral" size={140} className="top-12 right-12" spin={false} />
           <Blob className="bottom-0 -right-12" color="teal" size={260} delay={1} />
-          <NumberMark value="04" className="-top-6 -right-6" />
+          <NumberMark value="05" className="-top-6 -right-6" />
         </>
       }
     >

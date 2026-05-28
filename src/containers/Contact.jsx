@@ -58,7 +58,7 @@ const Contact = () => {
   return (
     <SectionLayout
       id="contact"
-      index={5}
+      index={6}
       label="Let's Talk"
       staggerMode="fast"
       leftDecor={<Blob className="top-1/4 -left-12" color="teal" size={340} />}
@@ -66,7 +66,7 @@ const Contact = () => {
         <>
           <Blob className="bottom-0 -right-16" color="coral" size={320} delay={1} />
           <Shape variant="ring" color="amber" size={80} className="top-16 right-16" />
-          <NumberMark value="05" className="-bottom-10 -right-6" />
+          <NumberMark value="06" className="-bottom-10 -right-6" />
         </>
       }
     >

@@ -1,10 +1,18 @@
 import React, { useRef } from "react";
-import { About, Contact, Home, Projects, Skills, Footer } from "./";
+import { About, Contact, Experience, Home, Projects, Skills, Footer } from "./";
 import { Loader, ScrollProgress } from "../components";
 import useLoader from "../hooks/useLoader";
 import useSectionSnap from "../hooks/useSectionSnap";
 
-const SECTION_IDS = ["home", "about", "skills", "projects", "contact", "outro"];
+const SECTION_IDS = [
+  "home",
+  "about",
+  "skills",
+  "experience",
+  "projects",
+  "contact",
+  "outro",
+];
 
 const App = () => {
   const containerRef = useRef(null);
@@ -22,6 +30,7 @@ const App = () => {
         <Home />
         <About />
         <Skills />
+        <Experience />
         <Projects />
         <Contact />
         <Footer />

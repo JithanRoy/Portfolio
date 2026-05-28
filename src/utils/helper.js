@@ -146,6 +146,49 @@ export const ProjectsData = [
   // },
 ];
 
+export const ExperienceData = [
+  {
+    id: "technonext-se",
+    role: "Software Engineer",
+    company: "TechnoNext Ltd.",
+    location: "Notun Bazar, Bangladesh",
+    period: "Sep 2025 — Present",
+    current: true,
+    highlights: [
+      "Designed RESTful APIs in Node.js + Express with PostgreSQL, serving 5+ integrated client applications.",
+      "Led frontend work for a WTV platform, reducing average page load time by ~35% via code splitting and asset optimization.",
+      "Architected PostgreSQL schemas and indexes that improved query performance by up to 40%.",
+      "Containerized the stack with Docker, eliminating environment-specific bugs across dev and prod.",
+    ],
+  },
+  {
+    id: "tuliptech-se",
+    role: "Software Engineer",
+    company: "TulipTech Ltd.",
+    location: "Uttar Badda, Dhaka",
+    period: "May 2024 — Aug 2025",
+    current: false,
+    highlights: [
+      "Integrated AI-driven features into a production web app, co-designing RESTful APIs for real-time data flows.",
+      "Cut bundle size by 30% with route-based code splitting and lazy loading, improving Time to Interactive on low-bandwidth networks.",
+      "Refactored the shared component library into a modular architecture, reducing duplicate code by 40%+.",
+    ],
+  },
+  {
+    id: "tuliptech-jse",
+    role: "Junior Software Engineer",
+    company: "TulipTech Ltd.",
+    location: "Uttar Badda, Bangladesh",
+    period: "Apr 2022 — Apr 2024",
+    current: false,
+    highlights: [
+      "Built pixel-perfect responsive React interfaces from Figma designs across mobile, tablet, and desktop.",
+      "Established a reusable component architecture adopted across 3+ projects.",
+      "Integrated REST APIs and managed server state with React Query, eliminating redundant network requests.",
+    ],
+  },
+];
+
 export const HeroData = {
   name: "Jithan Roy",
   titles: [

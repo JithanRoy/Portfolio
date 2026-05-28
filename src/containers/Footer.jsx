@@ -15,7 +15,7 @@ const Footer = () => {
       rightDecor={
         <>
           <Blob className="bottom-10 -right-16" color="teal" size={360} delay={1.5} />
-          <NumberMark value="06" className="-top-4 -right-6" />
+          <NumberMark value="07" className="-top-4 -right-6" />
         </>
       }
     >
