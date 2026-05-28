@@ -60,7 +60,7 @@ const TechOrbit = () => {
               animate={{ rotate: -360 }}
               transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
               whileHover={{ scale: 1.2 }}
-              className="absolute -translate-x-1/2 -translate-y-1/2 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-bg-surface/90 backdrop-blur border border-white/15 flex items-center justify-center shadow-[0_4px_24px_rgba(0,0,0,0.5)] hover:border-accent-teal/70 transition-colors cursor-default group"
+              className="absolute -translate-x-1/2 -translate-y-1/2 w-9 h-9 sm:w-12 sm:h-12 rounded-full bg-bg-surface/90 backdrop-blur border border-white/15 flex items-center justify-center shadow-[0_4px_24px_rgba(0,0,0,0.5)] hover:border-accent-teal/70 transition-colors cursor-default group"
               style={{ pointerEvents: "auto" }}
             >
               <Icon className="text-xl sm:text-2xl" style={{ color }} />
@@ -109,21 +109,21 @@ const Home = () => {
 
           <motion.h1
             variants={fromLeft}
-            className="font-display font-bold text-5xl sm:text-6xl lg:text-7xl leading-[1.05]"
+            className="font-display font-bold text-4xl sm:text-6xl lg:text-7xl leading-[1.05]"
           >
             <span className="gradient-text">{HeroData.name}</span>
           </motion.h1>
 
           <motion.h2
             variants={fadeUp}
-            className="text-2xl sm:text-3xl text-text-primary mt-2"
+            className="text-xl sm:text-3xl text-text-primary mt-2"
           >
             And I'm <HeroTypeWritter words={HeroData.titles} speed={85} />
           </motion.h2>
 
           <motion.p
             variants={fadeUp}
-            className="text-text-muted text-base lg:text-lg leading-relaxed max-w-xl mt-2"
+            className="text-text-muted text-sm sm:text-base lg:text-lg leading-relaxed max-w-xl mt-2"
           >
             {HeroData.description}
           </motion.p>
@@ -170,7 +170,7 @@ const Home = () => {
           variants={fromRight}
           className="relative flex items-center justify-center"
         >
-          <div className="hero-orbit relative w-[22rem] h-[22rem] sm:w-[26rem] sm:h-[26rem] lg:w-[30rem] lg:h-[30rem] flex items-center justify-center">
+          <div className="hero-orbit relative w-[18rem] h-[18rem] sm:w-[26rem] sm:h-[26rem] lg:w-[30rem] lg:h-[30rem] flex items-center justify-center">
             {/* soft teal halo behind */}
             <motion.div
               aria-hidden
@@ -239,7 +239,7 @@ const Home = () => {
                   repeat: Infinity,
                   ease: "easeInOut",
                 }}
-                className="relative w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 rounded-full overflow-hidden border-[3px] border-bg-deep ring-1 ring-accent-teal/30 shadow-[0_20px_60px_rgba(0,0,0,0.5),0_0_60px_rgba(0,173,181,0.25)]"
+                className="relative w-52 h-52 sm:w-72 sm:h-72 lg:w-80 lg:h-80 rounded-full overflow-hidden border-[3px] border-bg-deep ring-1 ring-accent-teal/30 shadow-[0_20px_60px_rgba(0,0,0,0.5),0_0_60px_rgba(0,173,181,0.25)]"
               >
                 <img
                   src={Hero}
@@ -266,7 +266,7 @@ const Home = () => {
         variants={scrollHint}
         initial="initial"
         animate="animate"
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-text-muted text-[10px] tracking-[0.4em] uppercase"
+        className="hidden lg:flex absolute bottom-8 left-1/2 -translate-x-1/2 flex-col items-center gap-2 text-text-muted text-[10px] tracking-[0.4em] uppercase"
       >
         Scroll
         <span className="block w-px h-8 bg-text-muted/60" />

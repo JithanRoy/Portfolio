@@ -35,7 +35,7 @@ const SectionLayout = ({
           initial={{ opacity: 0, x: -20 }}
           animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="absolute top-8 left-6 lg:top-12 lg:left-12 flex items-center gap-4 z-10"
+          className="absolute top-5 left-4 lg:top-12 lg:left-12 flex items-center gap-2 sm:gap-4 z-10"
         >
           {index !== undefined && (
             <span className="font-display text-accent-teal text-sm tracking-[0.3em]">

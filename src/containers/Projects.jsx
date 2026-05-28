@@ -104,7 +104,7 @@ const Projects = () => {
       <div className="mb-6 lg:mb-8">
         <motion.h2
           variants={fromLeft}
-          className="font-display font-bold text-3xl sm:text-4xl lg:text-5xl leading-tight"
+          className="font-display font-bold text-2xl sm:text-4xl lg:text-5xl leading-tight"
         >
           <span className="text-text-primary">Selected</span>{" "}
           <span className="gradient-text">work.</span>

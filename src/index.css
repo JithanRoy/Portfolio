@@ -51,8 +51,14 @@ body,
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 7rem 1.5rem 5rem;
+  padding: 5rem 1rem 6rem;
   overflow: visible;
+}
+
+@media (min-width: 640px) {
+  .snap-section {
+    padding: 6rem 1.5rem 5rem;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -64,7 +70,7 @@ body,
 @media (max-height: 800px) {
   .snap-section {
     align-items: flex-start;
-    padding-top: 6rem;
+    padding-top: 5rem;
   }
 }
 
@@ -83,7 +89,7 @@ body,
 }
 
 .hero-orbit {
-  --orbit-radius: 11rem;
+  --orbit-radius: 9rem;
 }
 @media (min-width: 640px) {
   .hero-orbit {

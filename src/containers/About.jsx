@@ -30,7 +30,7 @@ const About = () => {
         <div className="order-2 lg:order-1 flex flex-col gap-4 lg:gap-5">
           <motion.div
             variants={fromLeft}
-            className="font-display font-bold text-3xl sm:text-4xl lg:text-5xl leading-tight"
+            className="font-display font-bold text-2xl sm:text-4xl lg:text-5xl leading-tight"
           >
             <span className="block gradient-text-warm">Engineering</span>
             <span className="block text-text-primary">that ships.</span>
@@ -54,7 +54,7 @@ const About = () => {
           <motion.div
             animate={{ y: [-6, 6, -6], rotate: -3 }}
             transition={{ y: { duration: 5, repeat: Infinity, ease: "easeInOut" }, rotate: { duration: 0 } }}
-            className="relative w-72 sm:w-96"
+            className="relative w-56 sm:w-80 lg:w-96"
           >
             <div className="absolute -inset-1 bg-gradient-decor rounded-2xl blur-sm opacity-70" />
             <div className="relative rounded-2xl overflow-hidden border-2 border-white/10">

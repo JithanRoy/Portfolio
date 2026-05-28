@@ -29,7 +29,7 @@ const Footer = () => {
 
         <motion.h2
           variants={fadeUp}
-          className="font-display font-bold text-6xl sm:text-7xl lg:text-8xl gradient-text leading-none"
+          className="font-display font-bold text-4xl sm:text-7xl lg:text-8xl gradient-text leading-none"
         >
           Jithan Roy
         </motion.h2>

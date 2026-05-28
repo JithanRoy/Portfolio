@@ -78,7 +78,7 @@ const Contact = () => {
         <div className="flex flex-col gap-8">
           <motion.h2
             variants={fromLeft}
-            className="font-display font-bold text-4xl sm:text-5xl leading-tight"
+            className="font-display font-bold text-2xl sm:text-4xl lg:text-5xl leading-tight"
           >
             <span className="block text-text-primary">Let's build</span>
             <span className="block gradient-text">something good.</span>

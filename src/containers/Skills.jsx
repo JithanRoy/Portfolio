@@ -66,7 +66,7 @@ const Skills = () => {
         <div className="flex flex-col gap-6">
           <motion.div
             variants={fromLeft}
-            className="font-display font-bold text-4xl sm:text-5xl leading-tight"
+            className="font-display font-bold text-2xl sm:text-4xl lg:text-5xl leading-tight"
           >
             <span className="block gradient-text">What I do</span>
             <span className="block text-text-primary">every day.</span>
