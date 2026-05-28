@@ -1,13 +1,15 @@
 import React, { useRef } from "react";
 import { About, Contact, Home, Projects, Skills, Footer } from "./";
 import { Loader, ScrollProgress } from "../components";
-import useLenis from "../hooks/useLenis";
 import useLoader from "../hooks/useLoader";
+import useSectionSnap from "../hooks/useSectionSnap";
+
+const SECTION_IDS = ["home", "about", "skills", "projects", "contact", "outro"];
 
 const App = () => {
   const containerRef = useRef(null);
   const { progress, isLoading } = useLoader();
-  useLenis(containerRef);
+  useSectionSnap(containerRef, SECTION_IDS);
 
   return (
     <>

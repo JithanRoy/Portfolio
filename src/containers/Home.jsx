@@ -1,10 +1,78 @@
-import React from "react";
 import { AnimatePresence, motion } from "motion/react";
+import {
+  SiDocker,
+  SiGo,
+  SiMongodb,
+  SiNextdotjs,
+  SiNodedotjs,
+  SiPostgresql,
+  SiReact,
+  SiTailwindcss,
+  SiTypescript,
+} from "react-icons/si";
 import { Hero } from "../assets";
 import { HeroTypeWritter, HomeSocialLinks, SectionLayout } from "../components";
-import { Blob, Shape, NumberMark } from "../components/Decorations";
+import { Blob, NumberMark } from "../components/Decorations";
 import { HeroData, Socials } from "../utils/helper";
-import { fromLeft, fromRight, fadeUp, scaleIn, scrollHint } from "../utils/motionVariants";
+import {
+  fadeUp,
+  fromLeft,
+  fromRight,
+  scaleIn,
+  scrollHint,
+} from "../utils/motionVariants";
+
+const TECH_STACK = [
+  { name: "React", Icon: SiReact, color: "#61DAFB" },
+  { name: "Next.js", Icon: SiNextdotjs, color: "#FFFFFF" },
+  { name: "TypeScript", Icon: SiTypescript, color: "#3178C6" },
+  { name: "Node.js", Icon: SiNodedotjs, color: "#5FA04E" },
+  { name: "Golang", Icon: SiGo, color: "#00ADD8" },
+  { name: "PostgreSQL", Icon: SiPostgresql, color: "#4169E1" },
+  { name: "MongoDB", Icon: SiMongodb, color: "#47A248" },
+  { name: "Docker", Icon: SiDocker, color: "#2496ED" },
+  { name: "Tailwind", Icon: SiTailwindcss, color: "#38BDF8" },
+];
+
+const TechOrbit = () => {
+  return (
+    <motion.div
+      aria-hidden
+      animate={{ rotate: 360 }}
+      transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
+      className="absolute inset-0"
+      style={{ pointerEvents: "none" }}
+    >
+      {TECH_STACK.map(({ name, Icon, color }, i) => {
+        const angle = (i / TECH_STACK.length) * 360;
+        return (
+          <div
+            key={name}
+            className="absolute top-1/2 left-1/2"
+            style={{
+              width: 0,
+              height: 0,
+              transform: `rotate(${angle}deg) translateY(calc(-1 * var(--orbit-radius)))`,
+            }}
+          >
+            <motion.div
+              animate={{ rotate: -360 }}
+              transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
+              whileHover={{ scale: 1.2 }}
+              className="absolute -translate-x-1/2 -translate-y-1/2 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-bg-surface/90 backdrop-blur border border-white/15 flex items-center justify-center shadow-[0_4px_24px_rgba(0,0,0,0.5)] hover:border-accent-teal/70 transition-colors cursor-default group"
+              style={{ pointerEvents: "auto" }}
+            >
+              <Icon className="text-xl sm:text-2xl" style={{ color }} />
+              <span className="absolute top-full mt-2 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded text-[10px] tracking-widest uppercase text-text-primary bg-bg-deep/95 border border-white/10 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                {name}
+              </span>
+            </motion.div>
+          </div>
+        );
+      })}
+    </motion.div>
+  );
+};
 
 const Home = () => {
   return (
@@ -14,7 +82,12 @@ const Home = () => {
       leftDecor={
         <>
           <Blob className="top-1/4 -left-20" color="teal" size={400} />
-          <Blob className="bottom-10 left-1/3" color="violet" size={300} delay={2} />
+          <Blob
+            className="bottom-10 left-1/3"
+            color="violet"
+            size={300}
+            delay={2}
+          />
         </>
       }
       rightDecor={
@@ -54,7 +127,10 @@ const Home = () => {
             {HeroData.description}
           </motion.p>
 
-          <motion.div variants={fadeUp} className="flex items-center gap-4 mt-6">
+          <motion.div
+            variants={fadeUp}
+            className="flex items-center gap-4 mt-6"
+          >
             <AnimatePresence>
               {Socials.map((item, index) => (
                 <HomeSocialLinks key={item.id} data={item} index={index} />
@@ -69,7 +145,9 @@ const Home = () => {
             className="mt-6 group inline-flex items-center gap-3 px-7 py-3 rounded-full bg-accent-teal text-bg-deep font-semibold tracking-wide hover:bg-accent-amber transition-colors"
           >
             Hire me
-            <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
+            <span className="inline-block transition-transform group-hover:translate-x-1">
+              →
+            </span>
           </motion.a>
         </div>
 
@@ -77,103 +155,90 @@ const Home = () => {
           variants={fromRight}
           className="relative flex items-center justify-center"
         >
-          <div className="relative w-72 h-72 sm:w-80 sm:h-80 lg:w-96 lg:h-96 flex items-center justify-center">
-            {/* pulsing halo */}
+          <div className="hero-orbit relative w-[22rem] h-[22rem] sm:w-[26rem] sm:h-[26rem] lg:w-[30rem] lg:h-[30rem] flex items-center justify-center">
+            {/* soft teal halo behind */}
             <motion.div
               aria-hidden
-              animate={{ scale: [1, 1.15, 1], opacity: [0.35, 0.55, 0.35] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute inset-0 rounded-full bg-gradient-primary blur-3xl"
+              animate={{ scale: [1, 1.08, 1], opacity: [0.25, 0.4, 0.25] }}
+              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute inset-0 rounded-full bg-accent-teal blur-3xl"
             />
 
-            {/* slow conic-gradient rotating ring */}
+            {/* rotating conic-gradient rim */}
             <motion.div
               aria-hidden
               animate={{ rotate: 360 }}
-              transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
-              className="absolute -inset-4 rounded-full"
+              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+              className="absolute -inset-3 rounded-full"
               style={{
                 background:
-                  "conic-gradient(from 0deg, #00ADB5, #A78BFA, #FF6B6B, #FFB454, #00ADB5)",
+                  "conic-gradient(from 0deg, #00ADB5, #A78BFA, transparent 35%, transparent 65%, #00ADB5)",
                 WebkitMask:
-                  "radial-gradient(circle, transparent 58%, black 60%, black 64%, transparent 66%)",
-                mask:
-                  "radial-gradient(circle, transparent 58%, black 60%, black 64%, transparent 66%)",
+                  "radial-gradient(circle, transparent 60%, black 62%, black 66%, transparent 68%)",
+                mask: "radial-gradient(circle, transparent 60%, black 62%, black 66%, transparent 68%)",
               }}
             />
 
-            {/* counter-rotating dashed outline */}
+            {/* dashed orbit path (icons sit on this ring) */}
             <motion.div
               aria-hidden
               animate={{ rotate: -360 }}
-              transition={{ duration: 32, repeat: Infinity, ease: "linear" }}
-              className="absolute -inset-10 rounded-full border border-dashed border-accent-teal/30"
+              transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+              className="absolute inset-0 rounded-full border border-dashed border-accent-teal/20"
             />
 
-            {/* floating accent shapes */}
+            {/* orbiting tech logos */}
+            <TechOrbit />
+
+            {/* orbiting accent shapes (around the portrait, not on it) */}
             <motion.div
-              animate={{ y: [-12, 12, -12] }}
-              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute top-2 -right-2 w-8 h-8 rounded-full bg-accent-coral shadow-[0_0_24px_rgba(255,107,107,0.6)]"
+              animate={{ y: [-10, 10, -10] }}
+              transition={{
+                duration: 5.5,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              className="absolute top-1 -right-1 w-6 h-6 rounded-full bg-accent-coral shadow-[0_0_22px_rgba(255,107,107,0.55)]"
             />
             <motion.div
-              animate={{ y: [10, -10, 10], rotate: [0, 45, 0] }}
-              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute bottom-4 -left-2 w-6 h-6 bg-accent-amber shadow-[0_0_20px_rgba(255,180,84,0.6)]"
+              animate={{ y: [8, -8, 8], rotate: [0, 45, 0] }}
+              transition={{
+                duration: 6.5,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              className="absolute bottom-3 -left-1 w-5 h-5 bg-accent-amber shadow-[0_0_18px_rgba(255,180,84,0.55)]"
             />
             <motion.div
-              animate={{ y: [-8, 8, -8], x: [0, 6, 0] }}
+              animate={{ y: [-6, 6, -6] }}
               transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -bottom-2 right-6 w-7 h-7 rounded-full border-2 border-accent-violet"
+              className="absolute -bottom-1 right-8 w-6 h-6 rounded-full border-2 border-accent-violet"
             />
 
-            {/* the portrait — knocked out + retinted to palette */}
+            {/* the portrait — natural colors, just framed */}
             <motion.div variants={scaleIn} className="relative">
               <motion.div
-                animate={{ y: [-6, 6, -6] }}
-                transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
-                className="relative w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 rounded-full overflow-hidden border-4 border-bg-deep shadow-[0_0_80px_rgba(0,173,181,0.45)]"
-                style={{
-                  background:
-                    "radial-gradient(circle at 50% 40%, #00ADB5 0%, #393E46 70%, #161a23 100%)",
+                animate={{ y: [-5, 5, -5] }}
+                transition={{
+                  duration: 5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
                 }}
+                className="relative w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 rounded-full overflow-hidden border-[3px] border-bg-deep ring-1 ring-accent-teal/30 shadow-[0_20px_60px_rgba(0,0,0,0.5),0_0_60px_rgba(0,173,181,0.25)]"
               >
-                {/* tint layer below image */}
-                <div
-                  aria-hidden
-                  className="absolute inset-0"
-                  style={{
-                    background:
-                      "radial-gradient(circle at 50% 35%, rgba(0,173,181,0.35), transparent 70%)",
-                  }}
-                />
                 <img
                   src={Hero}
                   alt="Jithan Roy"
-                  className="relative w-full h-full object-cover"
-                  style={{
-                    filter:
-                      "saturate(0.55) contrast(1.05) hue-rotate(140deg) brightness(0.95)",
-                    mixBlendMode: "luminosity",
-                  }}
+                  className="w-full h-full object-cover"
+                  style={{ objectPosition: "center 30%" }}
                 />
-                {/* color wash to unify with palette */}
+                {/* edge vignette only — fades the busy background edges into the page */}
                 <div
                   aria-hidden
-                  className="absolute inset-0 pointer-events-none"
-                  style={{
-                    background:
-                      "linear-gradient(135deg, rgba(0,173,181,0.18) 0%, transparent 50%, rgba(167,139,250,0.22) 100%)",
-                    mixBlendMode: "color",
-                  }}
-                />
-                {/* subtle inner vignette */}
-                <div
-                  aria-hidden
-                  className="absolute inset-0 pointer-events-none"
+                  className="absolute inset-0 pointer-events-none rounded-full"
                   style={{
                     boxShadow:
-                      "inset 0 0 60px rgba(22,26,35,0.7), inset 0 0 120px rgba(22,26,35,0.4)",
+                      "inset 0 0 50px rgba(22,26,35,0.55), inset 0 0 12px rgba(22,26,35,0.4)",
                   }}
                 />
               </motion.div>

@@ -2,16 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap");
 
-html, body, #root {
+html,
+body,
+#root {
   margin: 0;
   padding: 0;
   width: 100%;
   height: 100%;
   background: #161a23;
-  color: #EEEEEE;
-  font-family: 'Outfit', sans-serif;
+  color: #eeeeee;
+  font-family: "Outfit", sans-serif;
   overflow: hidden;
 }
 
@@ -24,10 +26,17 @@ html, body, #root {
   height: 100vh;
   overflow-y: auto;
   overflow-x: hidden;
-  scroll-snap-type: y proximity;
+  scroll-snap-type: y mandatory;
   scroll-padding-top: 0;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  scroll-behavior: smooth;
+}
+
+@media (max-height: 800px) {
+  .snap-container {
+    scroll-snap-type: y proximity;
+  }
 }
 
 .snap-container::-webkit-scrollbar {
@@ -60,28 +69,44 @@ html, body, #root {
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, #00ADB5 0%, #A78BFA 100%);
+  background: linear-gradient(135deg, #00adb5 0%, #a78bfa 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .gradient-text-warm {
-  background: linear-gradient(135deg, #FF6B6B 0%, #FFB454 100%);
+  background: linear-gradient(135deg, #ff6b6b 0%, #ffb454 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
+.hero-orbit {
+  --orbit-radius: 11rem;
+}
+@media (min-width: 640px) {
+  .hero-orbit {
+    --orbit-radius: 13rem;
+  }
+}
+@media (min-width: 1024px) {
+  .hero-orbit {
+    --orbit-radius: 15rem;
+  }
+}
+
 .section-number {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: "Space Grotesk", sans-serif;
   font-weight: 700;
   color: transparent;
   -webkit-text-stroke: 1px rgba(255, 255, 255, 0.08);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
